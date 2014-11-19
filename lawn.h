@@ -12,7 +12,7 @@ public:
 signals:
 
 public slots:
-
+    void mousePressEvent(QMouseEvent *event);
 };
 
 #endif // LAWN_H

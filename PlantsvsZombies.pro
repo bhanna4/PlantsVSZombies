@@ -13,8 +13,16 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    lawn.cpp \
+    plants.cpp \
+    username.cpp \
+    fileloader.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    lawn.h \
+    plants.h \
+    username.h \
+    fileloader.h
 
 FORMS    += mainwindow.ui
