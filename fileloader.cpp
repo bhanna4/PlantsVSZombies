@@ -36,3 +36,20 @@ void fileloader::ReadParseUserFile()     //used to open up the user file and run
 
 
 }
+
+bool fileloader::validateUserInfo()
+{
+    for(int i =0; i < ListofNames.size()-1; i++)
+    {
+        for(int j=0; j < ListofNames.at(i).size(); j++)
+        {
+            int characterCheck;
+            characterCheck = ListofNames.at(i).at(j).unicode();
+
+            if(((characterCheck<'A')||(characterCheck<'a'))&&((characterCheck>'Z')||(characterCheck>'z'))) return 0;
+        }
+    }
+
+    return 1;
+
+}
