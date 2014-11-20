@@ -112,9 +112,9 @@
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>50</y>
-      <width>631</width>
-      <height>361</height>
+      <y>64</y>
+      <width>651</width>
+      <height>331</height>
      </rect>
     </property>
    </widget>

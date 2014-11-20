@@ -13,7 +13,10 @@ bool fileloader::checkValidity(QString file)
         if ( !optionalFile->open(QIODevice::ReadOnly|QIODevice::Text))
             return false;
         else
+        {
+            optionalFile->close();
             return true;
+        }
 }
 
 void fileloader::ReadParseUserFile()     //used to open up the user file and run it

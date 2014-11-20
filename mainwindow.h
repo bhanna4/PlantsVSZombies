@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QMainWindow>
 #include "fileloader.h"
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -16,6 +17,8 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    QMessageBox daMessageBox;
+    void drawMyLawn();
     ~MainWindow();
 
 private slots:
