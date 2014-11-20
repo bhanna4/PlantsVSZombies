@@ -53,3 +53,47 @@ bool fileloader::validateUserInfo()
     return 1;
 
 }
+
+void fileloader::SetUser(QString file)
+{
+    userFile = new QFile(file);
+}
+
+void fileloader::ReadParseLevelFile()
+{
+    // all taken from Lab 2 where we parsed and read files
+    QString path;
+    QTextStream text(levelFile);
+    QStringList tempList;
+
+    while(!text.atEnd())
+    {
+        path = text.readLine();
+        tempList = path.split(':');
+        tempList << path;
+
+        LevelIdentifier.push_back(tempList[0].toInt());
+        ListofSequences << tempList[1];
+        ListofRows.push_back(tempList[2].toInt());
+        ListofWheretoStart.push_back(tempList[3].toInt());
+        IntervalTimeList.push_back(tempList[4].toInt());
+        ListofDecrement.push_back(tempList[5].toInt());
+
+
+        /*QString path2;
+        QTextStream text2(tempList[1]);
+        QStringList tempList2;
+
+        path2 = text2.readLine();
+        tempList2 = path2.split(",");
+        tempList << path2;
+
+        for(int i = 0; i<tempList.size - 1; i++)
+        {
+            SequencesParsedSoFar.push_back(tempList[i].toInt());
+        }*/
+
+
+    }
+}
+
