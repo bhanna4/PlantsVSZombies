@@ -39,6 +39,7 @@ void fileloader::ReadParseUserFile()     //used to open up the user file and run
 
 bool fileloader::validateUserInfo()
 {
+
     for(int i =0; i < ListofNames.size()-1; i++)
     {
         for(int j=0; j < ListofNames.at(i).size(); j++)
@@ -49,14 +50,14 @@ bool fileloader::validateUserInfo()
             if(((characterCheck<'A')||(characterCheck<'a'))&&((characterCheck>'Z')||(characterCheck>'z'))) return 0;
         }
     }
-
     return 1;
-
+    // we need to add in the 0-100 check.
 }
 
 void fileloader::SetUser(QString file)
 {
     userFile = new QFile(file);
+    // delete userFile; ????
 }
 
 void fileloader::ReadParseLevelFile()
@@ -95,5 +96,24 @@ void fileloader::ReadParseLevelFile()
 
 
     }
+}
+
+bool fileloader::validateLevelInfo()
+{
+    for (int i =0; i < LevelIdentifier.size(); i++)
+    {
+        int ID = LevelIdentifier.at(i);
+        int asciiTens = '0' + (ID/10)%100;
+        int asciiOnes = '0' + ID%10;
+
+        if((ID<=0)||(ID>=100)||(asciiTens<'0')||(asciiTens>'9')||(asciiOnes>'9')||(asciiOnes<'0')) return 0;
+    }
+    return 1;
+}
+
+void fileloader::SetFile(QString file)
+{
+    levelFile = new QFile(file);
+    //delete levelFile;???
 }
 

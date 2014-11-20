@@ -12,6 +12,24 @@ MainWindow::MainWindow(QWidget *parent) :
     QPen my_pen = QPen(Qt::red);
     QBrush my_brush = QBrush(Qt::blue);
     scene->addRect(0,0,100,100, my_pen, my_brush);
+
+
+    QString MyFiles = "C:\Qt\Tools\QtCreator\bin\PlantsvsZombies";
+    QString UsersFiles = ":/pvz_players.csv";
+
+    if(!(loader.checkValidity(UsersFiles)))
+    {
+        ui->statusBar->showMessage("Unable to load player data.");
+    }
+    else
+    {
+        ui->statusBar->showMessage("Player Loaded.");
+        loader.SetUser(UsersFiles);
+    }
+
+
+
+
 }
 
 MainWindow::~MainWindow()
