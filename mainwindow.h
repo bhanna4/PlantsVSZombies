@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     QMessageBox daMessageBox;
-    void drawMyLawn();
+    void drawMyLawn(int row);
     ~MainWindow();
 
 private slots:
@@ -27,6 +27,8 @@ private slots:
     void on_RestartLevelButton_clicked();
 
     void on_UserChoose_currentIndexChanged(const QString &arg1);
+
+    void on_StartButton_clicked();
 
 private:
     Ui::MainWindow *ui;

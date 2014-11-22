@@ -10,8 +10,6 @@ MainWindow::MainWindow(QWidget *parent) :
     scene = new QGraphicsScene(this);   // scene holds all objects in the scene
     ui->LawnScreen->setScene(scene);  // graphicsView is the viewport on to the scene
 
-    drawMyLawn();
-
 
     QString MyFiles = "C:/Qt/Tools/QtCreator/bin/PlantsvsZombies";
     QString UsersFiles = "C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/pvz_players.csv";
@@ -25,6 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->statusBar->showMessage("Player Loaded.");
         loader.SetUser(UsersFiles);
     }
+
+    loader.ReadParseUserFile();
+
 
     QString LevelFiles = "C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/pvz_levels.csv";
 
@@ -50,21 +51,93 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-void MainWindow::drawMyLawn()
+void MainWindow::drawMyLawn(int row)
 {
     QBrush myBrush;
     QPen myPen(QColor(0,0,0));
 
-    for(int i =0; i<5; i++)
+    if(row==1)
     {
-        for(int j = 0; j<10; j++)
+        for(int i =0; i<5; i++)
         {
-            if(j==0)
+            for(int j = 0; j<10; j++)
             {
-                myBrush = QColor(131, 80, 28);
+                if(j==0)
+                {
+                    myBrush = QColor(131, 80, 28);
+                }
+                else
+                {
+                   if((i==0)||(i==1)||(i==3)||(i==4))
+                   {
+                       myBrush = QColor(131, 80, 28);
+                   }
+                   else if((i==2)&&(j%2==0))
+                   {
+                    myBrush = QColor(20,215,53);
+                   }
+                   else if((i==2)&&(!j%2==0))
+                   {
+                       myBrush = QColor(32, 131, 28);
+                   }
+                }
+                double column = j;
+                double row = i;
+                scene->addRect(column*63, row*63, 63, 63, myPen, myBrush);
             }
-            else
+        }
+    }
+    else if(row==3)
+    {
+        for(int i =0; i<5; i++)
+        {
+            for(int j = 0; j<10; j++)
             {
+                if(j==0)
+                {
+                    myBrush = QColor(131, 80, 28);
+                }
+                else
+                {
+                   if((i==0)||(i==4))
+                   {
+                        myBrush = QColor(131, 80, 28);
+                   }
+                   else if((i%2==0)&&(j%2==0))
+                   {
+                    myBrush = QColor(32, 131, 28);
+                   }
+                   else if((i%2==0)&&(!j%2==0))
+                   {
+                       myBrush = QColor(20,215,53);
+                   }
+                   else if((!i%2==0)&&(j%2==0))
+                   {
+                    myBrush = QColor(20,215,53);
+                   }
+                   else if((!i%2==0)&&(!j%2==0))
+                   {
+                       myBrush = QColor(32, 131, 28);
+                   }
+                }
+                double column = j;
+                double row = i;
+                scene->addRect(column*63, row*63, 63, 63, myPen, myBrush);
+            }
+        }
+    }
+    else if(row==5)
+    {
+        for(int i =0; i<5; i++)
+        {
+            for(int j = 0; j<10; j++)
+            {
+                if(j==0)
+                {
+                    myBrush = QColor(131, 80, 28);
+                }
+                else
+                {
                    if((i%2==0)&&(j%2==0))
                    {
                     myBrush = QColor(32, 131, 28);
@@ -81,10 +154,11 @@ void MainWindow::drawMyLawn()
                    {
                        myBrush = QColor(32, 131, 28);
                    }
+                }
+                double column = j;
+                double rows = i;
+                scene->addRect(column*63, rows*63, 63, 63, myPen, myBrush);
             }
-            double column = j;
-            double row = i;
-            scene->addRect(column*63, row*63, 63, 63, myPen, myBrush);
         }
     }
 }
@@ -108,4 +182,9 @@ void MainWindow::on_UserChoose_currentIndexChanged(const QString &arg1)
 {
 
 
+}
+
+void MainWindow::on_StartButton_clicked()
+{
+        drawMyLawn(5);
 }

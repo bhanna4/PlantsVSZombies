@@ -35,6 +35,8 @@ void fileloader::ReadParseUserFile()     //used to open up the user file and run
         timeStampList.push_back(tempList[0].toInt());  //this is done since the time stamp of the game is the first thing in the csv file
         ListofNames << tempList[1];                   // sets the QStringList for the names to the second spot of the file
         levelOnList.push_back(tempList[1].toInt()); // makes sure the level they are on is set to an integer
+
+        //players.push_back();
     }
 
 

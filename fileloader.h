@@ -25,9 +25,9 @@ public:
     //all user functions
     void ReadParseUserFile();
     bool validateUserInfo();
-    //void MakeUserVector(vector );
+    //void MakeUserVector(vector <userName>);
     void SetUser(QString file);
-    //void CreateNewUser(QString username, vector <username*> &usernameMaster);
+    //void CreateNewUser(QString username, vector <userName*> &username);
 
     //all level functions
     void ReadParseLevelFile();
@@ -42,6 +42,7 @@ private:
     QFile *levelFile; //used in setting the level
     QFile *userFile; // used in setting our user
 
+    vector <userName> players;
     vector <int> timeStampList;   // used to hold the info of the time stamp on the user info
     vector <int> levelOnList;     // used to hold the info of the level the user is on
 

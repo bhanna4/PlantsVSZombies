@@ -9,7 +9,7 @@ class Plants : public QObject
     Q_OBJECT
 public:
     explicit Plants(QObject *parent = 0);
-    void createNewPlant(QString plantType);
+    Plants(plants object);
     void setCost(const int cost);
     void getCost() const;
     void setLife(const int life);
@@ -32,7 +32,7 @@ public:
     void getSeeding() const;
     void setRate(const double rate);
     void getRate() const;
-
+    plants type;
 private:
     int cost, life, range, damage, splash, slow, bomb, sun, need;
     double seeding, rate;
