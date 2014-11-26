@@ -2,6 +2,8 @@
 #define PLANTS_H
 
 #include <QObject>
+#include <QGraphicsPixmapItem>
+#include <QImage>
 
 enum plants{peaShooter, sunFlower, cherryBomb, wallNut, potatoMine, snowPea, chomper, repeater};
 class Plants : public QObject
@@ -36,6 +38,9 @@ public:
 private:
     int cost, life, range, damage, splash, slow, bomb, sun, need;
     double seeding, rate;
+    QGraphicsPixmapItem *imageMap;
+    QImage *image;
+
 
 signals:
 

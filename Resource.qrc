@@ -1,1 +1,20 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>pvz_levels.csv</file>
+        <file>pvz_players.csv</file>
+        <file>BucketHead.png</file>
+        <file>CherryBomb.png</file>
+        <file>Chomper.png</file>
+        <file>ConeHead.png</file>
+        <file>FlagZombie.png</file>
+        <file>NewspaperZombie.png</file>
+        <file>PeaShooter.png</file>
+        <file>PotatoMine.png</file>
+        <file>RegularZombie.png</file>
+        <file>Repeater.png</file>
+        <file>SnowPea.png</file>
+        <file>Sunflower.png</file>
+        <file>WallNut.png</file>
+        <file>sun.png</file>
+    </qresource>
+</RCC>

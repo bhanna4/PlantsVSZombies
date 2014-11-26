@@ -17,12 +17,17 @@ SOURCES += main.cpp\
     lawn.cpp \
     plants.cpp \
     username.cpp \
-    fileloader.cpp
+    sunshine.cpp \
+    zombie.cpp
 
 HEADERS  += mainwindow.h \
     lawn.h \
     plants.h \
     username.h \
-    fileloader.h
+    sunshine.h \
+    zombie.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    Resource.qrc

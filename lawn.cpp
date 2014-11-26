@@ -5,9 +5,11 @@
 Lawn::Lawn(QWidget *parent) :
     QGraphicsView(parent)
 {
+
 }
 
-void Lawn::mousePressEvent(QMouseEvent *event)
+void Lawn::setType(plants daType)
 {
-    qDebug() << event->pos();
+    currentType = daType;
 }
+

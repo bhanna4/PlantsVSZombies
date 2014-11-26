@@ -2,4 +2,15 @@
 
 Sunshine::Sunshine()
 {
+    sunPoints = 1000;
+}
+
+void Sunshine::sunPointAdd()
+{
+    sunPoints += 25;
+}
+
+void Sunshine::sunPointSubtract(int cost)
+{
+    sunPoints -= cost;
 }

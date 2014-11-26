@@ -30,6 +30,10 @@ Plants::Plants(plants object)
         damage=1;
         rate=1.5;
         seeding=7.5;
+        //image = new QImage(":/PeaShooter.png");
+        //imageMap->setPixmap(QPixmap::fromImage(*image).scaled(50,50));
+        break;
+
     case sunFlower:
         cost=50;
         life=4;
