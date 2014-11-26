@@ -51,6 +51,12 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug()<<players.size();
     }
 
+    if(players.size()==0)
+    {
+        ui->DeleteUserButton->setEnabled(false);
+        ui->UserChoose->setEnabled(false);
+    }
+
     comboBoxSet();
 
     QString LevelFiles = "C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/pvz_levels.csv";
@@ -456,8 +462,12 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         scene->addItem(pic);
         type = 'v';
 
+        sX = event->x()-130;
+        sY = event->y()-115;
         Plants *point2 = new Plants(sunFlower);
         plantVector.push_back(point2);
+
+        QTimer::singleShot(24000, this, SLOT(createSunFlowerSun()));
 
     }
     else if(type=='c')
@@ -737,6 +747,9 @@ void MainWindow::on_RestartLevelButton_clicked()
         case QMessageBox::Yes:
         {
             drawMyLawn(3);
+            sunpoint.sunPoints = 1000;
+            ui->SunPoints->setNum(sunpoint.sunPoints);
+
             break;
         }
         case QMessageBox::No:
@@ -750,6 +763,16 @@ void MainWindow::on_RestartLevelButton_clicked()
 void MainWindow::movedaSun()
 {
 
+
+}
+
+void MainWindow::createSunFlowerSun()
+{
+        QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SunFA");
+        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        pic->setScale(0.8);
+        pic->setPos(sX, sY);
+        scene->addItem(pic);
 
 }
 
@@ -772,7 +795,7 @@ void MainWindow::on_StartButton_clicked()
     updateRepeat();
 
     timer->start(20);
-    drawMyLawn(3);
+    drawMyLawn(rowsOnLevel);
 
     ui->AddNewUserButton->setEnabled(false);
     ui->DeleteUserButton->setEnabled(false);
@@ -978,4 +1001,10 @@ void MainWindow::on_RepeaterButton_clicked()
 void MainWindow::click(int x, int y, Plants *daPlant)
 {
 
+}
+
+void MainWindow::on_AddNewUserButton_clicked()
+{
+    currentLevel=1;
+    rowsOnLevel = 1;
 }

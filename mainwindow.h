@@ -38,6 +38,9 @@ public:
 
     char type;
 
+    int currentLevel;
+    int rowsOnLevel;
+
 
     //functions used on all files
     bool checkValidity(QString file); //to check and see if the file is valid
@@ -65,6 +68,8 @@ public:
 
     int pA, snA, wA, pmA, cbA, cA, spA, rA;
 
+    double sX, sY;
+    int dSX, dSY;
 
 
     ~MainWindow();
@@ -85,6 +90,8 @@ private slots:
     void on_RestartLevelButton_clicked();
 
     void movedaSun();
+
+    void createSunFlowerSun();
 
     void on_UserChoose_currentIndexChanged(const QString &arg1);
 
@@ -107,6 +114,8 @@ private slots:
     void on_RepeaterButton_clicked();
 
     void click(int x, int y, Plants *daPlant);
+
+    void on_AddNewUserButton_clicked();
 
 private:
     Ui::MainWindow *ui;
