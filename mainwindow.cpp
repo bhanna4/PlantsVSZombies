@@ -445,8 +445,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 
     if(event->x()==x&&event->y()==0)
     {
-        delete *pic;
-        delete sunF;
+        //delete *pic;
+        //delete sunF;
         //scene->removeItem();
     }
     if(type=='p')
@@ -874,6 +874,11 @@ void MainWindow::on_PeaShooterButton_clicked()
         plantVector.push_back(point);
 
         QTimer::singleShot(7500, this, SLOT(updatePeaShooter()));
+        /*while(!QTimer==7500)
+        {
+            ui->peashooterProgressBar->setValue((QTimer/7500)*100);
+        }*/
+        //How do I check the time it is on?
 
 
     }
