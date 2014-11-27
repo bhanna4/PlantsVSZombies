@@ -1142,12 +1142,36 @@ void MainWindow::on_AddNewUserButton_clicked()
     }
     else
     {
-        ui->UserChoose->setEnabled(true);
-        ui->UserChoose->setItemText(1, checkName);
-        ui->StartButton->setEnabled(true);
-        ui->RestartLevelButton->setEnabled(true);
-        ui->QuitButon->setEnabled(true);
+
+        daMessageBox.setText("Are you sure you wish to add this new user?");
+        daMessageBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
+        daMessageBox.setDefaultButton(QMessageBox::Cancel);
+        int choice = daMessageBox.exec();
+        switch (choice){
+
+            case QMessageBox::Yes:
+            {
+                ui->UserChoose->setEnabled(true);
+                ui->UserChoose->setItemText(1, checkName);
+                ui->StartButton->setEnabled(true);
+                ui->RestartLevelButton->setEnabled(true);
+                ui->QuitButon->setEnabled(true);
+                ui->LevelOnDisplay->setNum(currentLevel);
+
+                break;
+            }
+            case QMessageBox::Cancel:
+            {
+                ui->lineEdit->setText("");
+                break;
+            }
+            default:
+                break;
+
+            }
+
     }
+
 
 
 

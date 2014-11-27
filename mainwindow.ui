@@ -42,7 +42,7 @@
      <rect>
       <x>10</x>
       <y>230</y>
-      <width>91</width>
+      <width>41</width>
       <height>16</height>
      </rect>
     </property>
@@ -497,6 +497,19 @@
     </property>
     <property name="value">
      <number>24</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LevelOnDisplay">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>230</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
