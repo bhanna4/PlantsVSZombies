@@ -15,6 +15,7 @@
 #include "zombie.h"
 #include <QTimer>
 #include <QProgressBar>
+#include <QRegExp>
 
 using namespace std;
 
@@ -37,7 +38,11 @@ public:
     Lawn lawn;
     void createSun();
 
-    QGraphicsPixmapItem *pic, *sunF;
+    QString checkName;
+
+    bool validNewName(QString name);
+
+    QGraphicsPixmapItem *pic, *sunF, *pics, *pic2, *pic3, *pic4, *pic5, *pic6, *pic7;
     QGraphicsPixmapItem *SunSun;
 
     char type;

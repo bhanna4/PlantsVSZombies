@@ -314,7 +314,22 @@ void MainWindow::setSceneInitial()
         palette.setBrush(QPalette::Background, bkgnd);
         this->setPalette(palette);
 
-    ui->SunPoints->setNum(sunpoint.sunPoints);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+}
+
+bool MainWindow::validNewName(QString name)
+{
+    QRegExp rx("\\w{0,9}");
+        QRegExpValidator validator (rx,0);
+     int pos=0;
+     if (validator.validate(name,pos)==QValidator::Acceptable|| validator.validate(name,pos)==QValidator::Intermediate)
+     {
+         qDebug()<<"validation complete";
+         return 1;
+     }
+     else {qDebug()<<"not validated";
+         return false;}
+
 }
 bool MainWindow::checkValidity(QString file)
 {
@@ -491,9 +506,9 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/PeaShooter.png");
-        QGraphicsPixmapItem *pics = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        pics = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
-        pic->setPos(event->x()-140, event->y()-125);
+        pics->setPos(event->x()-140, event->y()-125);
         scene->addItem(pics);
         type = 'v';
 
@@ -536,10 +551,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunpoint.sunPointSubtract(150);
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
-        QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/CherryBomb.png");
-        QGraphicsPixmapItem *pic2 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QImage cherry("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/CherryBomb.png");
+        pic2 = new QGraphicsPixmapItem(QPixmap::fromImage(cherry));
         //pic->setScale(0.4);
-        pic->setPos(event->x()-140, event->y()-100);
+        pic2->setPos(event->x()-140, event->y()-100);
         scene->addItem(pic2);
         type = 'v';
 
@@ -552,10 +567,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunpoint.sunPointSubtract(50);
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
-        QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/WallNut.png");
-        QGraphicsPixmapItem *pic3 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QImage wall("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/WallNut.png");
+        pic3 = new QGraphicsPixmapItem(QPixmap::fromImage(wall));
         //pic->setScale(0.4);
-        pic->setPos(event->x()-145, event->y()-125);
+        pic3->setPos(event->x()-145, event->y()-125);
         scene->addItem(pic3);
         type = 'v';
 
@@ -568,10 +583,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunpoint.sunPointSubtract(25);
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
-        QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/PotatoMine.png");
-        QGraphicsPixmapItem *pic4 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QImage mine("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/PotatoMine.png");
+        pic4 = new QGraphicsPixmapItem(QPixmap::fromImage(mine));
         //pic->setScale(0.4);
-        pic->setPos(event->x()-140, event->y()-110);
+        pic4->setPos(event->x()-140, event->y()-110);
         scene->addItem(pic4);
         type = 'v';
 
@@ -584,10 +599,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunpoint.sunPointSubtract(175);
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
-        QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SnowPea.png");
-        QGraphicsPixmapItem *pic5 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QImage snow("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SnowPea.png");
+        pic5 = new QGraphicsPixmapItem(QPixmap::fromImage(snow));
         //pic->setScale(0.4);
-        pic->setPos(event->x()-140, event->y()-125);
+        pic5->setPos(event->x()-140, event->y()-125);
         scene->addItem(pic5);
         type = 'v';
 
@@ -600,10 +615,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunpoint.sunPointSubtract(150);
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
-        QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Chomper.png");
-        QGraphicsPixmapItem *pic6 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QImage chomp("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Chomper.png");
+        pic6 = new QGraphicsPixmapItem(QPixmap::fromImage(chomp));
         //pic->setScale(0.4);
-        pic->setPos(event->x()-140, event->y()-125);
+        pic6->setPos(event->x()-140, event->y()-125);
         scene->addItem(pic6);
         type = 'v';
 
@@ -616,10 +631,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunpoint.sunPointSubtract(200);
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
-        QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Repeater.png");
-        QGraphicsPixmapItem *pic7 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QImage repeat("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Repeater.png");
+        pic7 = new QGraphicsPixmapItem(QPixmap::fromImage(repeat));
         //pic->setScale(0.4);
-        pic->setPos(event->x()-140, event->y()-125);
+        pic7->setPos(event->x()-140, event->y()-125);
         scene->addItem(pic7);
         type = 'v';
 
@@ -1102,8 +1117,41 @@ void MainWindow::on_AddNewUserButton_clicked()
 {
     currentLevel=1;
     rowsOnLevel = 1;
-    ui->StartButton->setEnabled(true);
-    ui->RestartLevelButton->setEnabled(true);
-    ui->QuitButon->setEnabled(true);
+
+    checkName = (ui->lineEdit->text());
+
+    if(validNewName(checkName)==false)
+    {
+        daMessageBox.setText("I'm sorry that isnt a valid username....");
+        daMessageBox.setStandardButtons(QMessageBox::Ok);
+        daMessageBox.setDefaultButton(QMessageBox::Ok);
+        int choice = daMessageBox.exec();
+        switch (choice){
+
+            case QMessageBox::Ok:
+            {
+                ui->lineEdit->setText("");
+
+
+                break;
+            }
+            default:
+                break;
+
+        }
+    }
+    else
+    {
+        ui->UserChoose->setEnabled(true);
+        ui->UserChoose->setItemText(1, checkName);
+        ui->StartButton->setEnabled(true);
+        ui->RestartLevelButton->setEnabled(true);
+        ui->QuitButon->setEnabled(true);
+    }
+
+
+
+
+    qDebug() << checkName;
 
 }
