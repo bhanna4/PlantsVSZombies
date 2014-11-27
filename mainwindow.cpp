@@ -495,11 +495,13 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         Plants *point2 = new Plants(sunFlower);
         plantVector.push_back(point2);
 
-        QTimer::singleShot(24000, this, SLOT(createSunFlowerSun()));
+        for(int i = 1; i<3; i++)
+        {
+            int time = 24000*i;
+            QTimer::singleShot(time, this, SLOT(createSunFlowerSun()));
+        }
 
-        QTimer::singleShot(48000, this, SLOT(createSunFlowerSun()));
 
-        QTimer::singleShot(72000, this, SLOT(createSunFlowerSun()));
 
     }
     else if(type=='c')
