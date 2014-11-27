@@ -71,6 +71,8 @@ public:
     double sX, sY;
     int dSX, dSY;
 
+    int x;
+
     int P1bx, P1by, P2bx, P2by, P3bx, P3by, P4bx, P4by, Pcount;
 
 

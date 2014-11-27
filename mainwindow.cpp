@@ -443,6 +443,12 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     qDebug() << event->pos();
 
+    if(event->x()==x&&event->y()==0)
+    {
+        delete *pic;
+        delete sunF;
+        //scene->removeItem();
+    }
     if(type=='p')
     {
         if(Pcount==0)
@@ -835,13 +841,12 @@ void MainWindow::moveSun(double time, double y, double velocity)
 }
 void MainWindow::drawSun(double y)
 {
-    int x;
     x = (qrand()%600);
 
-    QImage sun("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SunFA.png");
-    QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(sun));
+    QImage sunF("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SunFA.png");
+    QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(sunF));
     pic->setScale(0.8);
-    pic->setPos(x,y);
+    pic->setPos(x,0);
     scene->addItem(pic);
 
     suntimer = new QTimer;
