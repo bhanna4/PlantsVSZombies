@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    Pcount = 0;
 
     setButtons();
 
@@ -55,6 +56,9 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         ui->DeleteUserButton->setEnabled(false);
         ui->UserChoose->setEnabled(false);
+        ui->StartButton->setEnabled(false);
+        ui->QuitButon->setEnabled(false);
+        ui->RestartLevelButton->setEnabled(false);
     }
 
     comboBoxSet();
@@ -441,6 +445,16 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 
     if(type=='p')
     {
+        if(Pcount==0)
+        {
+            P1bx = event->x()-140;
+            P1by = event->y()-125;
+        }
+        else if(Pcount==1)
+        {
+            P2bx = event->x()-140;
+            P2by = event->y()-125;
+        }
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/PeaShooter.png");
         QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
@@ -749,6 +763,14 @@ void MainWindow::on_RestartLevelButton_clicked()
             drawMyLawn(3);
             sunpoint.sunPoints = 1000;
             ui->SunPoints->setNum(sunpoint.sunPoints);
+            ui->CherryBombButton->setEnabled(true);
+            ui->ChomperButton->setEnabled(true);
+            ui->PeaShooterButton->setEnabled(true);
+            ui->PotatoMineButton->setEnabled(true);
+            ui->RepeaterButton->setEnabled(true);
+            ui->SnowPeaButton->setEnabled(true);
+            ui->SunFlowerButton->setEnabled(true);
+            ui->WalNutButton->setEnabled(true);
 
             break;
         }
@@ -1007,4 +1029,8 @@ void MainWindow::on_AddNewUserButton_clicked()
 {
     currentLevel=1;
     rowsOnLevel = 1;
+    ui->StartButton->setEnabled(true);
+    ui->RestartLevelButton->setEnabled(true);
+    ui->QuitButon->setEnabled(true);
+
 }
