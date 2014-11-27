@@ -256,7 +256,7 @@ void MainWindow::drawMyLawn(int row)
         }
     }
 
-    drawSun(0);
+    drawSun();
 
 }
 
@@ -461,6 +461,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
             P2bx = event->x()-140;
             P2by = event->y()-125;
         }
+
+        sunpoint.sunPointSubtract(100);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/PeaShooter.png");
         QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
@@ -475,6 +479,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     }
     else if(type=='s')
     {
+
+        sunpoint.sunPointSubtract(50);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Sunflower.png");
         QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
@@ -489,9 +497,16 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 
         QTimer::singleShot(24000, this, SLOT(createSunFlowerSun()));
 
+        QTimer::singleShot(48000, this, SLOT(createSunFlowerSun()));
+
+        QTimer::singleShot(72000, this, SLOT(createSunFlowerSun()));
+
     }
     else if(type=='c')
     {
+        sunpoint.sunPointSubtract(150);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/CherryBomb.png");
         QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
@@ -505,6 +520,9 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     }
     else if(type=='w')
     {
+        sunpoint.sunPointSubtract(50);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/WallNut.png");
         QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
@@ -518,6 +536,9 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     }
     else if(type=='m')
     {
+        sunpoint.sunPointSubtract(25);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/PotatoMine.png");
         QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
@@ -531,6 +552,9 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     }
     else if(type=='n')
     {
+        sunpoint.sunPointSubtract(175);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SnowPea.png");
         QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
@@ -544,6 +568,9 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     }
     else if(type=='h')
     {
+        sunpoint.sunPointSubtract(150);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Chomper.png");
         QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
@@ -557,6 +584,9 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     }
     else if(type=='r')
     {
+        sunpoint.sunPointSubtract(200);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Repeater.png");
         QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
@@ -830,6 +860,12 @@ void MainWindow::on_StartButton_clicked()
     ui->StartButton->setEnabled(false);
     ui->UserChoose->setEnabled(false);
 
+    for(int i =1; i<11; i++)
+    {
+        int time = 10000*i;
+        QTimer::singleShot(time, this, SLOT(drawSun()));
+    }
+
 
 }
 
@@ -839,7 +875,7 @@ void MainWindow::moveSun(double time, double y, double velocity)
     ycoSun = y - (velocity*time*100);
 
 }
-void MainWindow::drawSun(double y)
+void MainWindow::drawSun()
 {
     x = (qrand()%600);
 
@@ -860,8 +896,6 @@ void MainWindow::on_PeaShooterButton_clicked()
     if(sunpoint.sunPoints >= 100)
     {
         updatePeaShooter();
-        sunpoint.sunPointSubtract(100);
-        ui->SunPoints->setNum(sunpoint.sunPoints);
 
         type = 'p';
 
@@ -890,8 +924,6 @@ void MainWindow::on_SunFlowerButton_clicked()
 {
     if(sunpoint.sunPoints >= 50)
     {
-        sunpoint.sunPointSubtract(50);
-        ui->SunPoints->setNum(sunpoint.sunPoints);
 
         type = 's';
 
@@ -908,12 +940,8 @@ void MainWindow::on_SunFlowerButton_clicked()
 
 void MainWindow::on_CherryBombButton_clicked()
 {
-
-
     if(sunpoint.sunPoints >= 150)
     {
-        sunpoint.sunPointSubtract(150);
-        ui->SunPoints->setNum(sunpoint.sunPoints);
 
         type = 'c';
 
@@ -931,8 +959,6 @@ void MainWindow::on_WalNutButton_clicked()
 {
     if(sunpoint.sunPoints >= 50)
     {
-        sunpoint.sunPointSubtract(50);
-        ui->SunPoints->setNum(sunpoint.sunPoints);
 
         type = 'w';
 
@@ -952,8 +978,6 @@ void MainWindow::on_PotatoMineButton_clicked()
 {
     if(sunpoint.sunPoints >= 25)
     {
-        sunpoint.sunPointSubtract(25);
-        ui->SunPoints->setNum(sunpoint.sunPoints);
 
         type = 'm';
 
@@ -972,8 +996,6 @@ void MainWindow::on_SnowPeaButton_clicked()
 {
     if(sunpoint.sunPoints >= 175)
     {
-        sunpoint.sunPointSubtract(175);
-        ui->SunPoints->setNum(sunpoint.sunPoints);
 
         type = 'n';
 
@@ -992,8 +1014,6 @@ void MainWindow::on_ChomperButton_clicked()
 {
     if(sunpoint.sunPoints >= 150)
     {
-        sunpoint.sunPointSubtract(150);
-        ui->SunPoints->setNum(sunpoint.sunPoints);
 
         type = 'h';
 
@@ -1013,8 +1033,6 @@ void MainWindow::on_RepeaterButton_clicked()
 {
     if(sunpoint.sunPoints >= 200)
     {
-        sunpoint.sunPointSubtract(200);
-        ui->SunPoints->setNum(sunpoint.sunPoints);
 
         type = 'r';
 

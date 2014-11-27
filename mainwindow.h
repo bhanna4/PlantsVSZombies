@@ -58,7 +58,7 @@ public:
     void SetFile(QString file);
 
 
-    void drawSun(double y);
+
 
     double ycoSun;
 
@@ -86,6 +86,7 @@ public slots:
     void updateCherry();
     void updateChomp();
     void updateRepeat();
+    void drawSun();
 
 
 private slots:
