@@ -14,6 +14,7 @@
 #include <QTextStream>
 #include "zombie.h"
 #include <QTimer>
+#include <QProgressBar>
 
 using namespace std;
 
@@ -35,6 +36,9 @@ public:
     Sunshine sun;
     Lawn lawn;
     void createSun();
+
+    QGraphicsPixmapItem *pic, *sunF;
+    QGraphicsPixmapItem *SunSun;
 
     char type;
 
@@ -87,6 +91,8 @@ public slots:
     void updateChomp();
     void updateRepeat();
     void drawSun();
+    void deleteFallSun();
+    void deleteSunSun();
 
 
 private slots:
@@ -154,6 +160,7 @@ private:
 
     QStringList ListofNames;
     QStringList ListofSequences;
+    QProgressBar *progressBar1;
 };
 
 #endif // MAINWINDOW_H

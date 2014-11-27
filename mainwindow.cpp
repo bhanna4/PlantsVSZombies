@@ -256,8 +256,6 @@ void MainWindow::drawMyLawn(int row)
         }
     }
 
-    drawSun();
-
 }
 
 void MainWindow::comboBoxSet()
@@ -441,13 +439,40 @@ void MainWindow::SetFile(QString file)
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    qDebug() << event->pos();
+    qDebug() << "Position of mouse event:" << event->pos();
+    qDebug()<<"sX from start of mousepress:"<<x;
+    qDebug()<<"sY from start of mousepress:" << sY;
 
-    if(event->x()==x&&event->y()==0)
+    if((event->x()>(sX-30)&&event->x()<(sX+30))&&(event->y()>(sY-30)&&event->y()<(sY+30)))
+    {
+        qDebug () << "hello world"<<pic;
+        qDebug () << "sX from in if#1:" << sX;
+        qDebug () << "sY from in if#2:" <<  sY;
+
+
+
+
+        //delete *pic;
+        //delete sunF;
+
+        scene->removeItem(SunSun);
+
+        sunpoint.sunPointAdd();
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
+        qDebug() <<"hello.";
+    }
+    if((event->x()>(x-190)&&event->x()<(x+210))&&(event->y()>(130)&&event->y()<(150)))
     {
         //delete *pic;
         //delete sunF;
-        //scene->removeItem();
+
+        scene->removeItem(sunF);
+
+        sunpoint.sunPointAdd();
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
+        qDebug() <<"hello.";
     }
     if(type=='p')
     {
@@ -466,10 +491,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/PeaShooter.png");
-        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QGraphicsPixmapItem *pics = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
         pic->setPos(event->x()-140, event->y()-125);
-        scene->addItem(pic);
+        scene->addItem(pics);
         type = 'v';
 
         Plants *point = new Plants(peaShooter);
@@ -484,14 +509,14 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Sunflower.png");
-        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
         pic->setPos(event->x()-140, event->y()-125);
         scene->addItem(pic);
         type = 'v';
 
-        sX = event->x()-130;
-        sY = event->y()-115;
+        sX = event->x();
+        sY = event->y();
         Plants *point2 = new Plants(sunFlower);
         plantVector.push_back(point2);
 
@@ -499,6 +524,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         {
             int time = 24000*i;
             QTimer::singleShot(time, this, SLOT(createSunFlowerSun()));
+            int timed = 31500*i;
+            QTimer::singleShot(timed, this, SLOT(deleteSunSun()));
         }
 
 
@@ -510,10 +537,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/CherryBomb.png");
-        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QGraphicsPixmapItem *pic2 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
         pic->setPos(event->x()-140, event->y()-100);
-        scene->addItem(pic);
+        scene->addItem(pic2);
         type = 'v';
 
         Plants *point3 = new Plants(cherryBomb);
@@ -526,10 +553,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/WallNut.png");
-        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QGraphicsPixmapItem *pic3 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
         pic->setPos(event->x()-145, event->y()-125);
-        scene->addItem(pic);
+        scene->addItem(pic3);
         type = 'v';
 
         Plants *point4 = new Plants(wallNut);
@@ -542,10 +569,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/PotatoMine.png");
-        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QGraphicsPixmapItem *pic4 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
         pic->setPos(event->x()-140, event->y()-110);
-        scene->addItem(pic);
+        scene->addItem(pic4);
         type = 'v';
 
         Plants *point5 = new Plants(potatoMine);
@@ -558,10 +585,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SnowPea.png");
-        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QGraphicsPixmapItem *pic5 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
         pic->setPos(event->x()-140, event->y()-125);
-        scene->addItem(pic);
+        scene->addItem(pic5);
         type = 'v';
 
         Plants *point6 = new Plants(snowPea);
@@ -574,10 +601,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Chomper.png");
-        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QGraphicsPixmapItem *pic6 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
         pic->setPos(event->x()-140, event->y()-125);
-        scene->addItem(pic);
+        scene->addItem(pic6);
         type = 'v';
 
         Plants *point7 = new Plants(chomper);
@@ -590,10 +617,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         ui->SunPoints->setNum(sunpoint.sunPoints);
 
         QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Repeater.png");
-        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        QGraphicsPixmapItem *pic7 = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
         //pic->setScale(0.4);
         pic->setPos(event->x()-140, event->y()-125);
-        scene->addItem(pic);
+        scene->addItem(pic7);
         type = 'v';
 
         Plants *point8 = new Plants(repeater);
@@ -690,6 +717,9 @@ void MainWindow::sunPointCheck()
         ui->WalNutButton->setEnabled(false);
         ui->PotatoMineButton->setEnabled(false);
     }
+
+    progressBar1 = this->findChild<QProgressBar*>("progressBar");
+    progressBar1->setValue(0);
 }
 MainWindow::~MainWindow()
 {
@@ -828,11 +858,11 @@ void MainWindow::movedaSun()
 
 void MainWindow::createSunFlowerSun()
 {
-        QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SunFA");
-        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
-        pic->setScale(0.8);
-        pic->setPos(sX, sY);
-        scene->addItem(pic);
+        QImage Sun("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SunFA");
+        SunSun = new QGraphicsPixmapItem(QPixmap::fromImage(Sun));
+        SunSun->setScale(0.8);
+        SunSun->setPos(sX-135, sY-125);
+        scene->addItem(SunSun);
 
 }
 
@@ -865,7 +895,10 @@ void MainWindow::on_StartButton_clicked()
     for(int i =1; i<11; i++)
     {
         int time = 10000*i;
+        int timed = 17500*i;
         QTimer::singleShot(time, this, SLOT(drawSun()));
+
+        QTimer::singleShot(timed, this, SLOT(deleteFallSun()));
     }
 
 
@@ -881,16 +914,26 @@ void MainWindow::drawSun()
 {
     x = (qrand()%600);
 
-    QImage sunF("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SunFA.png");
-    QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(sunF));
-    pic->setScale(0.8);
-    pic->setPos(x,0);
-    scene->addItem(pic);
+    QImage SUN("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SunFA.png");
+    sunF = new QGraphicsPixmapItem(QPixmap::fromImage(SUN));
+    sunF->setScale(0.8);
+    sunF->setPos(x,0);
+    scene->addItem(sunF);
 
     suntimer = new QTimer;
 
     connect(suntimer,SIGNAL(timeout()),this, SLOT(movedaSun()));
     suntimer->start(15);
+}
+
+void MainWindow::deleteFallSun()
+{
+    scene->removeItem(sunF);
+}
+
+void MainWindow::deleteSunSun()
+{
+    scene->removeItem(SunSun);
 }
 
 void MainWindow::on_PeaShooterButton_clicked()
