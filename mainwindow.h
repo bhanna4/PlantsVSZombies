@@ -42,13 +42,20 @@ public:
 
     bool validNewName(QString name);
 
-    QGraphicsPixmapItem *pic, *sunF, *pics, *pic2, *pic3, *pic4, *pic5, *pic6, *pic7;
+    QGraphicsPixmapItem *pic, *sunF, *pics, *pic2, *pic3, *pic4, *pic5, *pic6, *pic7, *cherryexp, *regz, *flagz;
     QGraphicsPixmapItem *SunSun;
-
+    QGraphicsPixmapItem *regz2, *regz3, *regz4;
+    int regZCount;
     char type;
 
     int currentLevel;
     int rowsOnLevel;
+    void levelFunction(int level);
+
+    int peaCount, snowCount, repeatCount;
+    double p1x, p1y;
+    double p2x, p2y;
+    double p3x, p3y;
 
 
     //functions used on all files
@@ -80,9 +87,15 @@ public:
     double sX, sY;
     int dSX, dSY;
 
+    void moveBullet();
+
     int x;
 
     int P1bx, P1by, P2bx, P2by, P3bx, P3by, P4bx, P4by, Pcount;
+
+    double cherryX, cherryY;
+
+    int potatoX, potatoY;
 
 
     ~MainWindow();
@@ -98,6 +111,12 @@ public slots:
     void drawSun();
     void deleteFallSun();
     void deleteSunSun();
+    void cherryExplode();
+    void cherryDelete();
+    void createRegZom();
+    void createFlagZom();
+    void drawPea();
+    void spawnBigPotato();
 
 
 private slots:

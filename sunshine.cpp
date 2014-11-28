@@ -2,7 +2,7 @@
 
 Sunshine::Sunshine()
 {
-    sunPoints = 1000;
+    sunPoints = 500;
 }
 
 void Sunshine::sunPointAdd()
