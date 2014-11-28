@@ -98,6 +98,7 @@ public:
     int potatoX, potatoY;
 
 
+
     ~MainWindow();
 public slots:
     void updatePeaShooter();
@@ -117,6 +118,7 @@ public slots:
     void createFlagZom();
     void drawPea();
     void spawnBigPotato();
+    void deleteRegZ();
 
 
 private slots:

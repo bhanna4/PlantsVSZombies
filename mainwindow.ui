@@ -139,8 +139,8 @@
    <widget class="QPushButton" name="PeaShooterButton">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>10</y>
+      <x>90</x>
+      <y>0</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -157,13 +157,13 @@
      <cursorShape>OpenHandCursor</cursorShape>
     </property>
     <property name="toolTip">
-     <string>PeaShooter 100 pts</string>
+     <string/>
     </property>
     <property name="toolTipDuration">
      <number>10</number>
     </property>
     <property name="statusTip">
-     <string>PeaShooter</string>
+     <string/>
     </property>
     <property name="accessibleName">
      <string>Peashooter</string>

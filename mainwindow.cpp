@@ -343,12 +343,25 @@ void MainWindow::levelFunction(int level)
 
         double time;
         time = 20000;
-        for(int i = 1; i < 5; i++)
-        {
+
+        QImage regZomb("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/RegularZombie.png");
+        regz = new QGraphicsPixmapItem(QPixmap::fromImage(regZomb));
+        //pic->setScale(0.4);
+        regz->setPos(500, 110);
+        //scene->addItem(regz);
             QTimer::singleShot(time, this, SLOT(createRegZom()));
             time -= 200;
-        }
-        QTimer::singleShot(75000, this, SLOT(createFlagZom()));
+
+            /*QTimer::singleShot(time, this, SLOT(createRegZom()));
+            time -= 200;
+
+            QTimer::singleShot(time, this, SLOT(createRegZom()));
+            time -= 200;
+
+            QTimer::singleShot(time, this, SLOT(createRegZom()));
+            time -= 200;*/
+
+            QTimer::singleShot(75000, this, SLOT(createFlagZom()));
 
        // levelFunction(2);
 
@@ -602,6 +615,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
          }
     }
     if((event->x()>(x-190)&&event->x()<(x+210))&&(event->y()>(130)&&event->y()<(150)))
+
     {
         //delete *pic;
         //delete sunF;
@@ -660,7 +674,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
             updatePotato();
          }
     }
-    if(type=='p')
+
+    if(((event->x()>164)&&(event->x()<730))&&((event->y()>204)&&(event->y()<267)))
+    {
+            if(type=='p')
     {
         if(peaCount==0)
         {
@@ -694,7 +711,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 
 
     }
-    else if(type=='s')
+            else if(type=='s')
     {
 
         sunpoint.sunPointSubtract(50);
@@ -724,7 +741,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 
 
     }
-    else if(type=='c')
+            else if(type=='c')
     {
         sunpoint.sunPointSubtract(150);
         ui->SunPoints->setNum(sunpoint.sunPoints);
@@ -748,7 +765,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunPointCheck();
 
     }
-    else if(type=='w')
+            else if(type=='w')
     {
         sunpoint.sunPointSubtract(50);
         ui->SunPoints->setNum(sunpoint.sunPoints);
@@ -766,7 +783,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunPointCheck();
 
     }
-    else if(type=='m')
+            else if(type=='m')
     {
         sunpoint.sunPointSubtract(25);
         ui->SunPoints->setNum(sunpoint.sunPoints);
@@ -789,7 +806,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunPointCheck();
 
     }
-    else if(type=='n')
+            else if(type=='n')
     {
 
         sunpoint.sunPointSubtract(175);
@@ -809,7 +826,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 
 
     }
-    else if(type=='h')
+            else if(type=='h')
     {
         sunpoint.sunPointSubtract(150);
         ui->SunPoints->setNum(sunpoint.sunPoints);
@@ -827,7 +844,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunPointCheck();
 
     }
-    else if(type=='r')
+            else if(type=='r')
     {
         if(((event->x()-140)>(P1bx-63)&&(event->x()-140)<(P1bx+63))&&((event->y()-125)>(P1by-63)&&(event->y()-125)<(P1by+63)))
         {
@@ -849,12 +866,208 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         }
 
     }
-
-
-    if(type=='v')
+            if(type=='v')
     {
         ui->statusBar->showMessage("Pick a new plant!!");
         sunPointCheck();
+    }
+    }
+    if(((event->x()>164)&&(event->x()<730))&&((event->y()>146)&&(event->y()<335)))
+    {
+            if(type=='p')
+    {
+        if(peaCount==0)
+        {
+            P1bx = event->x()-140;
+            P1by = event->y()-125;
+
+        }
+        else if(peaCount==1)
+        {
+            P2bx = event->x()-140;
+            P2by = event->y()-125;
+        }
+
+        sunpoint.sunPointSubtract(100);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
+        QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/PeaShooter.png");
+        pics = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        //pic->setScale(0.4);
+        pics->setPos(event->x()-140, event->y()-125);
+        scene->addItem(pics);
+        type = 'v';
+        peaCount++;
+
+        QTimer::singleShot(1500, this, SLOT(drawPea()));
+
+        Plants *point = new Plants(peaShooter);
+        plantVector.push_back(point);
+
+        sunPointCheck();
+
+
+    }
+            else if(type=='s')
+    {
+
+        sunpoint.sunPointSubtract(50);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
+        QImage pea("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Sunflower.png");
+        pic = new QGraphicsPixmapItem(QPixmap::fromImage(pea));
+        //pic->setScale(0.4);
+        pic->setPos(event->x()-140, event->y()-125);
+        scene->addItem(pic);
+        type = 'v';
+
+        sX = event->x();
+        sY = event->y();
+        Plants *point2 = new Plants(sunFlower);
+        plantVector.push_back(point2);
+
+        for(int i = 1; i<3; i++)
+        {
+            int time = 24000*i;
+            QTimer::singleShot(time, this, SLOT(createSunFlowerSun()));
+            int timed = 31500*i;
+            QTimer::singleShot(timed, this, SLOT(deleteSunSun()));
+        }
+        sunPointCheck();
+
+
+
+    }
+            else if(type=='c')
+    {
+        sunpoint.sunPointSubtract(150);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
+        QImage cherry("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/CherryBomb.png");
+        pic2 = new QGraphicsPixmapItem(QPixmap::fromImage(cherry));
+        //pic->setScale(0.4);
+        pic2->setPos(event->x()-140, event->y()-100);
+        scene->addItem(pic2);
+        type = 'v';
+
+        cherryX = event->x();
+        cherryY = event->y();
+
+        scene->removeItem(regz);
+
+        QTimer::singleShot(1000, this, SLOT(cherryExplode()));
+
+        Plants *point3 = new Plants(cherryBomb);
+        plantVector.push_back(point3);
+        sunPointCheck();
+
+    }
+            else if(type=='w')
+    {
+        sunpoint.sunPointSubtract(50);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
+        QImage wall("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/WallNut.png");
+        pic3 = new QGraphicsPixmapItem(QPixmap::fromImage(wall));
+        //pic->setScale(0.4);
+        pic3->setPos(event->x()-145, event->y()-125);
+        scene->addItem(pic3);
+        type = 'v';
+
+        Plants *point4 = new Plants(wallNut);
+        plantVector.push_back(point4);
+
+        sunPointCheck();
+
+    }
+            else if(type=='m')
+    {
+        sunpoint.sunPointSubtract(25);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
+        potatoX = event->x()-140;
+        potatoY = event->y()-110;
+
+        QImage mine("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/PotatoMinePreExplode.png");
+        pic4 = new QGraphicsPixmapItem(QPixmap::fromImage(mine));
+        //pic->setScale(0.4);
+        pic4->setPos(event->x()-140, event->y()-110);
+        scene->addItem(pic4);
+        type = 'v';
+
+        QTimer::singleShot(15000, this, SLOT(spawnBigPotato()));
+
+        Plants *point5 = new Plants(potatoMine);
+        plantVector.push_back(point5);
+
+        sunPointCheck();
+
+    }
+            else if(type=='n')
+    {
+
+        sunpoint.sunPointSubtract(175);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
+        QImage snow("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/SnowPea.png");
+        pic5 = new QGraphicsPixmapItem(QPixmap::fromImage(snow));
+        //pic->setScale(0.4);
+        pic5->setPos(event->x()-140, event->y()-125);
+        scene->addItem(pic5);
+        type = 'v';
+
+        Plants *point6 = new Plants(snowPea);
+        plantVector.push_back(point6);
+
+        sunPointCheck();
+
+
+    }
+            else if(type=='h')
+    {
+        sunpoint.sunPointSubtract(150);
+        ui->SunPoints->setNum(sunpoint.sunPoints);
+
+        QImage chomp("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Chomper.png");
+        pic6 = new QGraphicsPixmapItem(QPixmap::fromImage(chomp));
+        //pic->setScale(0.4);
+        pic6->setPos(event->x()-140, event->y()-125);
+        scene->addItem(pic6);
+        type = 'v';
+
+        Plants *point7 = new Plants(chomper);
+        plantVector.push_back(point7);
+
+        sunPointCheck();
+
+    }
+            else if(type=='r')
+    {
+        if(((event->x()-140)>(P1bx-63)&&(event->x()-140)<(P1bx+63))&&((event->y()-125)>(P1by-63)&&(event->y()-125)<(P1by+63)))
+        {
+            scene->removeItem(pics);
+            sunpoint.sunPointSubtract(200);
+            ui->SunPoints->setNum(sunpoint.sunPoints);
+
+            QImage repeat("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Repeater.png");
+            pic7 = new QGraphicsPixmapItem(QPixmap::fromImage(repeat));
+            pic7->setScale(1.3);
+            pic7->setPos(event->x()-145, event->y()-125);
+            scene->addItem(pic7);
+            type = 'v';
+
+            Plants *point8 = new Plants(repeater);
+            plantVector.push_back(point8);
+
+            sunPointCheck();
+        }
+
+    }
+            if(type=='v')
+    {
+        ui->statusBar->showMessage("Pick a new plant!!");
+        sunPointCheck();
+    }
     }
 
 }
@@ -949,6 +1162,7 @@ void MainWindow::moveBullet()
 {
     //set to move the bullet from its location
 }
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -1121,6 +1335,7 @@ void MainWindow::on_StartButton_clicked()
         QTimer::singleShot(timed, this, SLOT(deleteFallSun()));
     }
 
+    currentLevel =2;
 
     levelFunction(currentLevel);
 
@@ -1167,7 +1382,9 @@ void MainWindow::cherryExplode()
     //pic->setScale(0.4);
     pic2->setPos(cherryX-230, cherryY-175);
     scene->addItem(pic2);
-    //scene->removeItem(regz);
+    scene->removeItem(regz);
+
+    QTimer::singleShot(10, this, SLOT(deleteRegZ()));
 
     //if(regz->pos()>pic2->pos())
     //{
@@ -1186,12 +1403,13 @@ void MainWindow::cherryDelete()
 
 void MainWindow::createRegZom()
 {
-
     QImage regZomb("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/RegularZombie.png");
     regz = new QGraphicsPixmapItem(QPixmap::fromImage(regZomb));
     //pic->setScale(0.4);
     regz->setPos(500, 110);
     scene->addItem(regz);
+
+    qDebug() << regz ;
 
 }
 
@@ -1221,6 +1439,11 @@ void MainWindow::spawnBigPotato()
     pic4->setPos(potatoX, potatoY);
     scene->addItem(pic4);
 
+}
+
+void MainWindow::deleteRegZ()
+{
+    scene->removeItem(regz);
 }
 
 void MainWindow::on_PeaShooterButton_clicked()
