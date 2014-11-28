@@ -35,7 +35,7 @@ public:
     void setButtons();
     void setSceneInitial();
     Sunshine sun;
-    Lawn lawn;
+
     void createSun();
 
     QString checkName;

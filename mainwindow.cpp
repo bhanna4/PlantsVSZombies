@@ -947,7 +947,7 @@ void MainWindow::sunPointCheck()
 
 void MainWindow::moveBullet()
 {
-
+    //set to move the bullet from its location
 }
 MainWindow::~MainWindow()
 {
