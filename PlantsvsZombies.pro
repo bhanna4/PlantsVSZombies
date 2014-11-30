@@ -18,16 +18,22 @@ SOURCES += main.cpp\
     plants.cpp \
     username.cpp \
     sunshine.cpp \
-    zombie.cpp
+    zombie.cpp \
+    peas.cpp \
+    snowbullet.cpp
 
 HEADERS  += mainwindow.h \
     lawn.h \
     plants.h \
     username.h \
     sunshine.h \
-    zombie.h
+    zombie.h \
+    peas.h \
+    snowbullet.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     Resource.qrc
+
+OTHER_FILES +=

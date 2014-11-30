@@ -17,5 +17,6 @@
         <file>WallNut.png</file>
         <file>sun.png</file>
         <file>CherryExplode.png</file>
+        <file>bullet.png</file>
     </qresource>
 </RCC>

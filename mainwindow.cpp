@@ -30,6 +30,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->LawnScreen,SIGNAL(click(int,int,Plants*)),this,SLOT(click(int,int,Plants*)));
 
+    QTimer *bulletTimer = new QTimer;
+
+    connect(bulletTimer, SIGNAL(timeout()), this, SLOT(bulletMove()));
+    bulletTimer->start(100);
+
+    QTimer *snowbulletTimer = new QTimer;
+
+    connect(snowbulletTimer, SIGNAL(timeout()), this, SLOT(snowBulletMove()));
+    snowbulletTimer->start(100);
+
+    QTimer *zombieTimer = new QTimer;
+
+    connect(zombieTimer, SIGNAL(timeout()), this, SLOT(zombMove()));
+    zombieTimer->start(100);
+
 
     QString MyFiles = "C:/Qt/Tools/QtCreator/bin/PlantsvsZombies";
     QFile UsersFiles("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/pvz_players.csv");
@@ -343,27 +358,12 @@ void MainWindow::levelFunction(int level)
 
         double time;
         time = 20000;
-
-        QImage regZomb("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/RegularZombie.png");
-        regz = new QGraphicsPixmapItem(QPixmap::fromImage(regZomb));
-        //pic->setScale(0.4);
-        regz->setPos(500, 110);
-        //scene->addItem(regz);
-            QTimer::singleShot(time, this, SLOT(createRegZom()));
+        for(int i = 1; i < 5; i++)
+        {
+            QTimer::singleShot(time*i, this, SLOT(createRegZom()));
             time -= 200;
-
-            /*QTimer::singleShot(time, this, SLOT(createRegZom()));
-            time -= 200;
-
-            QTimer::singleShot(time, this, SLOT(createRegZom()));
-            time -= 200;
-
-            QTimer::singleShot(time, this, SLOT(createRegZom()));
-            time -= 200;*/
-
-            QTimer::singleShot(75000, this, SLOT(createFlagZom()));
-
-       // levelFunction(2);
+        }
+        QTimer::singleShot(75000, this, SLOT(createFlagZom()));
 
     }
     else if(level==2)
@@ -675,7 +675,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
          }
     }
 
-    if(((event->x()>164)&&(event->x()<730))&&((event->y()>204)&&(event->y()<267)))
+    if((currentLevel==1) && (((event->x()>164)&&(event->x()<730))&&((event->y()>204)&&(event->y()<267))))
     {
             if(type=='p')
     {
@@ -687,8 +687,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         }
         else if(peaCount==1)
         {
-            P2bx = event->x()-140;
-            P2by = event->y()-125;
+            P1bx = event->x()-140;
+            P1by = event->y()-125;
         }
 
         sunpoint.sunPointSubtract(100);
@@ -702,7 +702,15 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         type = 'v';
         peaCount++;
 
-        QTimer::singleShot(1500, this, SLOT(drawPea()));
+        int time = 1500;
+
+        for(int i = 1; i < 200; i++)
+        {
+            QTimer::singleShot((time*i), this, SLOT(drawPea()));
+        }
+
+
+
 
         Plants *point = new Plants(peaShooter);
         plantVector.push_back(point);
@@ -756,8 +764,6 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         cherryX = event->x();
         cherryY = event->y();
 
-        scene->removeItem(regz);
-
         QTimer::singleShot(1000, this, SLOT(cherryExplode()));
 
         Plants *point3 = new Plants(cherryBomb);
@@ -808,6 +814,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     }
             else if(type=='n')
     {
+        S1bx = event->x()-140;
+        S1by = event->y() - 125;
 
         sunpoint.sunPointSubtract(175);
         ui->SunPoints->setNum(sunpoint.sunPoints);
@@ -818,6 +826,14 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         pic5->setPos(event->x()-140, event->y()-125);
         scene->addItem(pic5);
         type = 'v';
+
+        int time = 1500;
+
+        for(int i = 1; i < 200; i++)
+        {
+            QTimer::singleShot((time*i), this, SLOT(drawsnowPea()));
+        }
+
 
         Plants *point6 = new Plants(snowPea);
         plantVector.push_back(point6);
@@ -872,7 +888,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         sunPointCheck();
     }
     }
-    if(((event->x()>164)&&(event->x()<730))&&((event->y()>146)&&(event->y()<335)))
+    else if((currentLevel==2)&&((event->x()>164)&&(event->x()<730))&&((event->y()>146)&&(event->y()<335)))
     {
             if(type=='p')
     {
@@ -1171,7 +1187,6 @@ MainWindow::~MainWindow()
 void MainWindow::updatePeaShooter()
 {
     ui->PeaShooterButton->setEnabled(true);
-    pA = 1;
 }
 
 void MainWindow::updateSnowPea()
@@ -1335,7 +1350,6 @@ void MainWindow::on_StartButton_clicked()
         QTimer::singleShot(timed, this, SLOT(deleteFallSun()));
     }
 
-    currentLevel =2;
 
     levelFunction(currentLevel);
 
@@ -1382,17 +1396,13 @@ void MainWindow::cherryExplode()
     //pic->setScale(0.4);
     pic2->setPos(cherryX-230, cherryY-175);
     scene->addItem(pic2);
-    scene->removeItem(regz);
 
-    QTimer::singleShot(10, this, SLOT(deleteRegZ()));
+    if ((((zombieVector[0].getXCo())<(cherryX+300))&&((zombieVector[0].getXCo())>(cherryX-300)))&&((regy<(cherryY+300))&&(regy>(cherryY-300))))
+    {
 
-    //if(regz->pos()>pic2->pos())
-    //{
-
-        //scene->removeItem(regz2);
-    //}
-
-    QTimer::singleShot(2000, this, SLOT(cherryDelete()));
+        QTimer::singleShot(2000, this, SLOT(cherryDelete()));
+        QTimer::singleShot(1000, this, SLOT(deleteRegZ()));
+    }
 
 }
 
@@ -1403,11 +1413,21 @@ void MainWindow::cherryDelete()
 
 void MainWindow::createRegZom()
 {
-    QImage regZomb("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/RegularZombie.png");
-    regz = new QGraphicsPixmapItem(QPixmap::fromImage(regZomb));
-    //pic->setScale(0.4);
-    regz->setPos(500, 110);
-    scene->addItem(regz);
+    Zombie *zombPointer = new Zombie();
+    zombPointer->setXCo(570);
+    zombPointer->setYCo(110);
+    QImage zombie("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/RegularZombie.png");
+    QGraphicsPixmapItem *regZPicture = new QGraphicsPixmapItem;
+    regZPicture->setPixmap(QPixmap::fromImage(zombie));
+    //regZPicture->setScale(0.075);
+    regZPicture->setPos(zombPointer->getXCo(), zombPointer->getYCo());
+    scene->addItem(regZPicture);
+    zombieVector.push_back(*zombPointer);
+    zombieRegPic.push_back(regZPicture);
+
+
+    regx = 570;
+    regy = 110;
 
     qDebug() << regz ;
 
@@ -1424,10 +1444,32 @@ void MainWindow::createFlagZom()
 
 void MainWindow::drawPea()
 {
-    QBrush peaBrush(QColor(54, 238, 103));
-    QPen peaPen(QColor(14, 102, 37));
+    Peas *peaPointer = new Peas();
+    peaPointer->setXCo(P1bx);
+    peaPointer->setYCo(P1by);
+    QImage bullet("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/bullet.png");
+    QGraphicsPixmapItem *peaPicture = new QGraphicsPixmapItem;
+    peaPicture->setPixmap(QPixmap::fromImage(bullet));
+    peaPicture->setScale(0.075);
+    peaPicture->setPos(peaPointer->getXCo()+75, peaPointer->getYCo()+10);
+    scene->addItem(peaPicture);
+    peaVector.push_back(*peaPointer);
+    peaPictures.push_back(peaPicture);
+}
 
-    scene->addEllipse(P1bx+75, P1by+5, 20, 20, peaPen, peaBrush );
+void MainWindow::drawsnowPea()
+{
+    snowBullet *snowPeaPointer = new snowBullet();
+    snowPeaPointer->setXCo(S1bx);
+    snowPeaPointer->setYCo(S1by);
+    QImage bullet("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/snowPeaBullet.png");
+    QGraphicsPixmapItem *snowPeaPicture = new QGraphicsPixmapItem;
+    snowPeaPicture->setPixmap(QPixmap::fromImage(bullet));
+    snowPeaPicture->setScale(0.075);
+    snowPeaPicture->setPos(snowPeaPointer->getXCo()+75, snowPeaPointer->getYCo()+10);
+    scene->addItem(snowPeaPicture);
+    snowVector.push_back(*snowPeaPointer);
+    snowPeaPictures.push_back(snowPeaPicture);
 }
 
 void MainWindow::spawnBigPotato()
@@ -1439,11 +1481,86 @@ void MainWindow::spawnBigPotato()
     pic4->setPos(potatoX, potatoY);
     scene->addItem(pic4);
 
+    if (((zombieVector[0].getXCo())<(potatoX+150))&&((zombieVector[0].getXCo())>(potatoX-150)))
+    {
+        scene->removeItem(pic4);
+        QImage mineafter("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/spudow.png");
+        pic4 = new QGraphicsPixmapItem(QPixmap::fromImage(mineafter));
+        //pic->setScale(0.4);
+        pic4->setPos(potatoX-20, potatoY-50);
+        scene->addItem(pic4);
+        QTimer::singleShot(2000, this, SLOT(deletePotato()));
+        QTimer::singleShot(100, this, SLOT(deleteRegZ()));
+    }
+
 }
 
 void MainWindow::deleteRegZ()
 {
-    scene->removeItem(regz);
+    scene->removeItem(zombieRegPic[0]);
+}
+
+void MainWindow::deletePotato()
+{
+    scene->removeItem(pic4);
+}
+
+void MainWindow::bulletMove()
+{
+    for(int i = 0; i < peaVector.size();i++)
+        {
+            peaVector[i].setXCo(peaVector[i].getXCo() - peaVector[i].getSpeed());
+            //zombiePicVector[i]->setPos(rand()% 500, rand()% 300);
+            peaPictures[i]->setPos((peaPictures[i]->x() + peaVector[i].getSpeed()), peaPictures[i]->y());
+    }
+}
+
+void MainWindow::snowBulletMove()
+{
+    for(int i = 0; i < snowVector.size();i++)
+        {
+            snowVector[i].setXCo(snowVector[i].getXCo() - snowVector[i].getSpeed());
+            //zombiePicVector[i]->setPos(rand()% 500, rand()% 300);
+            snowPeaPictures[i]->setPos((snowPeaPictures[i]->x() + snowVector[i].getSpeed()), snowPeaPictures[i]->y());
+    }
+}
+
+void MainWindow::zombMove()
+{
+    pA==0;
+    for(int i = 0; i < zombieVector.size();i++)
+    {
+            zombieVector[i].setXCo(zombieVector[i].getXCo() - zombieVector[i].getSpeed());
+            //zombiePicVector[i]->setPos(rand()% 500, rand()% 300);
+            zombieRegPic[i]->setPos((zombieRegPic[i]->x() - zombieVector[i].getSpeed()), zombieRegPic[i]->y());
+            if(zombieVector[i].getXCo()==0)
+            {
+                if(pA==0)
+                {
+
+                }
+                else if(pA==1)
+                {
+                daMessageBox.setText("Zombies ate your brains!!! DUH.");
+                daMessageBox.setStandardButtons(QMessageBox::Ok);
+                daMessageBox.setDefaultButton(QMessageBox::Ok);
+                int choice = daMessageBox.exec();
+                switch (choice){
+
+                    case QMessageBox::Ok:
+                    {
+                        drawMyLawn(currentLevel);
+                        bulletMove();
+
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                }
+                pA++;
+            }
+    }
 }
 
 void MainWindow::on_PeaShooterButton_clicked()
@@ -1456,7 +1573,6 @@ void MainWindow::on_PeaShooterButton_clicked()
 
 
         ui->PeaShooterButton->setEnabled(false);
-        pA = 0;
 
         //Plants *point = new Plants;
         Plants *point = new Plants(peaShooter);

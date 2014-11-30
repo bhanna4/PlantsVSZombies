@@ -16,6 +16,8 @@
 #include <QTimer>
 #include <QProgressBar>
 #include <QRegExp>
+#include "peas.h"
+#include "snowbullet.h"
 
 using namespace std;
 
@@ -57,6 +59,8 @@ public:
     double p2x, p2y;
     double p3x, p3y;
 
+    double regx, regy;
+
 
     //functions used on all files
     bool checkValidity(QString file); //to check and see if the file is valid
@@ -72,6 +76,7 @@ public:
     void ReadParseLevelFile();
     bool validateLevelInfo();
     void SetFile(QString file);
+
 
 
 
@@ -93,9 +98,23 @@ public:
 
     int P1bx, P1by, P2bx, P2by, P3bx, P3by, P4bx, P4by, Pcount;
 
+    int S1bx, S1by;
+
     double cherryX, cherryY;
 
     int potatoX, potatoY;
+
+    vector <Peas> peaVector;
+
+    vector <QGraphicsPixmapItem*> peaPictures;
+
+    vector <snowBullet> snowVector;
+
+    vector <QGraphicsPixmapItem*> snowPeaPictures;
+
+    vector <Zombie> zombieVector;
+
+    vector <QGraphicsPixmapItem*> zombieRegPic;
 
 
 
@@ -117,8 +136,13 @@ public slots:
     void createRegZom();
     void createFlagZom();
     void drawPea();
+    void drawsnowPea();
     void spawnBigPotato();
     void deleteRegZ();
+    void deletePotato();
+    void bulletMove();
+    void snowBulletMove();
+    void zombMove();
 
 
 private slots:
@@ -171,7 +195,6 @@ private:
 
     vector <Plants*> plantVector;
 
-    vector <Zombie*> zombieVector;
 
     /*vector <int> timeStampList;   // used to hold the info of the time stamp on the user info
     vector <int> levelOnList;     // used to hold the info of the level the user is on

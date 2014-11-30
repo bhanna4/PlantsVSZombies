@@ -59,3 +59,45 @@ Zombie::Zombie(zomb object)
 }
 
 }
+
+
+double Zombie::getSpeed() const
+{
+    return speed;
+}
+
+void Zombie::setSpeed(double value)
+{
+    speed = value;
+}
+double Zombie::getXCo() const
+{
+    return xCo;
+}
+
+void Zombie::setXCo(double value)
+{
+    xCo = value;
+}
+double Zombie::getYCo() const
+{
+    return yCo;
+}
+
+void Zombie::setYCo(double value)
+{
+    yCo = value;
+}
+int Zombie::getSlow() const
+{
+    return slow;
+}
+
+void Zombie::setSlow(int value)
+{
+    slow = value;
+}
+
+
+
+
