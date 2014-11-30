@@ -96,7 +96,9 @@ public:
 
     int x;
 
-    int P1bx, P1by, P2bx, P2by, P3bx, P3by, P4bx, P4by, Pcount;
+    int chompx, chompy;
+
+    int P1bx, P1by, P2bx, P2by, Pcount;
 
     int S1bx, S1by;
 
@@ -143,6 +145,7 @@ public slots:
     void bulletMove();
     void snowBulletMove();
     void zombMove();
+    void chomperCheck();
 
 
 private slots:

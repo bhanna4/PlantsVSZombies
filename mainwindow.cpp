@@ -45,6 +45,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(zombieTimer, SIGNAL(timeout()), this, SLOT(zombMove()));
     zombieTimer->start(100);
 
+    QTimer *chomperTimer = new QTimer;
+
+    connect(chomperTimer, SIGNAL(timeout()), this, SLOT(chomperCheck()));
+    chomperTimer->start(100);
+
 
     QString MyFiles = "C:/Qt/Tools/QtCreator/bin/PlantsvsZombies";
     QFile UsersFiles("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/pvz_players.csv");
@@ -170,10 +175,10 @@ void MainWindow::drawMyLawn(int row)
         }
 
         QImage mower("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/Lawn_Mower.png");
-        QGraphicsPixmapItem *pic = new QGraphicsPixmapItem(QPixmap::fromImage(mower));
+        regz4 = new QGraphicsPixmapItem(QPixmap::fromImage(mower));
         //pic->setScale(0.4);
-        pic->setPos(0,126);
-        scene->addItem(pic);
+        regz4->setPos(0,126);
+        scene->addItem(regz4);
 
     }
     else if(row==3)
@@ -381,7 +386,7 @@ void MainWindow::levelFunction(int level)
         }
         QTimer::singleShot(75000, this, SLOT(createFlagZom()));
     }
-    else if(currentLevel==3)
+    else if(level==3)
     {
         rowsOnLevel = 5;
         drawMyLawn(rowsOnLevel);
@@ -854,6 +859,9 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         scene->addItem(pic6);
         type = 'v';
 
+        chompx = event->x()-140;
+        chompy = event->y()-125;
+
         Plants *point7 = new Plants(chomper);
         plantVector.push_back(point7);
 
@@ -1285,7 +1293,7 @@ void MainWindow::on_RestartLevelButton_clicked()
 
         case QMessageBox::Yes:
         {
-            drawMyLawn(3);
+            drawMyLawn(currentLevel);
             sunpoint.sunPoints = 1000;
             ui->SunPoints->setNum(sunpoint.sunPoints);
             ui->CherryBombButton->setEnabled(true);
@@ -1296,6 +1304,11 @@ void MainWindow::on_RestartLevelButton_clicked()
             ui->SnowPeaButton->setEnabled(true);
             ui->SunFlowerButton->setEnabled(true);
             ui->WalNutButton->setEnabled(true);
+            peaVector.clear();
+            zombieVector.clear();
+            snowVector.clear();
+            P1bx = 0;
+            P1by = 0;
 
             break;
         }
@@ -1444,6 +1457,8 @@ void MainWindow::createFlagZom()
 
 void MainWindow::drawPea()
 {
+    if((!P1bx==0)&&(!P1by==0))
+    {
     Peas *peaPointer = new Peas();
     peaPointer->setXCo(P1bx);
     peaPointer->setYCo(P1by);
@@ -1455,6 +1470,7 @@ void MainWindow::drawPea()
     scene->addItem(peaPicture);
     peaVector.push_back(*peaPointer);
     peaPictures.push_back(peaPicture);
+    }
 }
 
 void MainWindow::drawsnowPea()
@@ -1470,6 +1486,12 @@ void MainWindow::drawsnowPea()
     scene->addItem(snowPeaPicture);
     snowVector.push_back(*snowPeaPointer);
     snowPeaPictures.push_back(snowPeaPicture);
+
+    for(int i =0; i < zombieVector.size(); i++)
+    {
+    zombieVector[i].setSpeed(2.5);
+    }
+
 }
 
 void MainWindow::spawnBigPotato()
@@ -1492,11 +1514,23 @@ void MainWindow::spawnBigPotato()
         QTimer::singleShot(2000, this, SLOT(deletePotato()));
         QTimer::singleShot(100, this, SLOT(deleteRegZ()));
     }
+    if (((zombieVector[1].getXCo())<(potatoX+150))&&((zombieVector[1].getXCo())>(potatoX-150)))
+    {
+        scene->removeItem(pic4);
+        QImage mineafter("C:/Qt/Tools/QtCreator/bin/PlantsvsZombies/spudow.png");
+        pic4 = new QGraphicsPixmapItem(QPixmap::fromImage(mineafter));
+        //pic->setScale(0.4);
+        pic4->setPos(potatoX-20, potatoY-50);
+        scene->addItem(pic4);
+        QTimer::singleShot(2000, this, SLOT(deletePotato()));
+        QTimer::singleShot(100, this, SLOT(deleteRegZ()));
+    }
 
 }
 
 void MainWindow::deleteRegZ()
 {
+
     scene->removeItem(zombieRegPic[0]);
 }
 
@@ -1535,11 +1569,13 @@ void MainWindow::zombMove()
             zombieRegPic[i]->setPos((zombieRegPic[i]->x() - zombieVector[i].getSpeed()), zombieRegPic[i]->y());
             if(zombieVector[i].getXCo()==0)
             {
-                if(pA==0)
+                if(pA==1)
                 {
+                    scene->removeItem(zombieRegPic[0]);
+                    scene->removeItem(regz4);
 
                 }
-                else if(pA==1)
+                else if(pA==2)
                 {
                 daMessageBox.setText("Zombies ate your brains!!! DUH.");
                 daMessageBox.setStandardButtons(QMessageBox::Ok);
@@ -1560,6 +1596,18 @@ void MainWindow::zombMove()
                 }
                 pA++;
             }
+    }
+}
+
+void MainWindow::chomperCheck()
+{
+    for(int i = 0; i < zombieVector.size();i++)
+    {
+       if(((zombieVector[i].getXCo()>chompx-75)&&((zombieVector[i].getXCo()<chompx+75)))&&((zombieVector[i].getYCo()>chompy-75)&&(zombieVector[i].getYCo()<chompy+75)))
+       {
+           scene->removeItem(zombieRegPic[i]);
+           scene->removeItem(pic6);
+       }
     }
 }
 
