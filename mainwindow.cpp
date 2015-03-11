@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     peaCount = 0;
 
+    pA=1;
+
     setButtons();
 
     setSceneInitial();
@@ -1416,6 +1418,13 @@ void MainWindow::cherryExplode()
         QTimer::singleShot(2000, this, SLOT(cherryDelete()));
         QTimer::singleShot(1000, this, SLOT(deleteRegZ()));
     }
+    if ((((zombieVector[1].getXCo())<(cherryX+300))&&((zombieVector[1].getXCo())>(cherryX-300)))&&((regy<(cherryY+300))&&(regy>(cherryY-300))))
+    {
+
+        QTimer::singleShot(2000, this, SLOT(cherryDelete()));
+        QTimer::singleShot(1000, this, SLOT(deleteRegZ()));
+    }
+    //scene->removeItem(pic2);
 
 }
 
@@ -1561,7 +1570,6 @@ void MainWindow::snowBulletMove()
 
 void MainWindow::zombMove()
 {
-    pA==0;
     for(int i = 0; i < zombieVector.size();i++)
     {
             zombieVector[i].setXCo(zombieVector[i].getXCo() - zombieVector[i].getSpeed());
